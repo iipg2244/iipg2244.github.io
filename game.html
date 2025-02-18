@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Kiss or Slap Roulette</title>
+    <meta content="Kiss or Slap Game." name="description">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            height: 100vh;
+            background: linear-gradient(135deg, #eba4a4, #fad0c4);
+            font-family: Arial, sans-serif;
+        }
+
+        .roulette {
+            text-align: center;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(#ff4d4d 0% 50%,
+                    #9b59b6 50% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .pointer {
+            width: 0;
+            height: 0;
+            border-left: 17.32px solid transparent;
+            border-right: 17.32px solid transparent;
+            border-top: 30px solid #333;
+            margin: 0 auto 10px auto;
+        }
+
+        .roulette button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #665c5c;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .roulette button:hover {
+            background: #332424;
+        }
+
+        .result {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .kiss-text {
+            color: #ff4d4d;
+        }
+
+        .slap-text {
+            color: #9b59b6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="roulette">
+        <h1><span class="kiss-text">Kiss</span> or <span class="slap-text">Slap</span>?</h1>
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+        <button onclick="spinRoulette()">Spin the Roulette!</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function spinRoulette() {
+            const wheel = document.getElementById('wheel');
+            const randomDegree = Math.floor(Math.random() * 360) + 720;
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            setTimeout(() => {
+                const finalPosition = randomDegree % 360;
+                const result = (finalPosition >= 0 && finalPosition < 180) ? 'Slap 👋' : 'Kiss 💋';
+                document.getElementById('result').textContent = result;
+            }, 4000);
+        }
+    </script>
+</body>
+
+</html>
